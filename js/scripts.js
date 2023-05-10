@@ -1,3 +1,5 @@
+
+//sets up a variable of an array of pokemon with name, height and type attributes
 let pokemonList = [ 
     {
         name: "Mewtwo", height:5, types: ["psychic"]
@@ -11,8 +13,10 @@ let pokemonList = [
 
 ];
 
-console.log(pokemonList);
 
 for (let i=0; i <pokemonList.length; i++) {
     document.write('<p class=pokemon>' + pokemonList[i].name + ": Height:" + pokemonList[i].height);
+    if (pokemonList[i].height >10) {
+        document.write(" :Wow that's tall!")
+    }
 }
