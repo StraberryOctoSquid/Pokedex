@@ -1,13 +1,18 @@
 let pokemonList = [ 
     {
-        name: "mewtwo", height:5, types: ["psychic"]
+        name: "Mewtwo", height:5, types: ["psychic"]
      },
      {
-        name:"charizard", height: 15, types: ["fire"]
+        name:"Charizard", height: 15, types: ["fire"]
     },
     {
-        name:"wartortle", height:5,types: ["water", "grass"]
+        name:"Wartortle", height:5,types: ["water", "grass"]
     }
 
-]
-console.log(pokemonList)
+];
+
+console.log(pokemonList);
+
+for (let i=0; i <pokemonList.length; i++) {
+    document.write('<p class=pokemon>' + pokemonList[i].name + ": Height:" + pokemonList[i].height);
+}
