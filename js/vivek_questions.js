@@ -3,7 +3,7 @@ let pokemonRepository = (function () {
   let pokemonList = [
     {
       name: 'Mewtwo',
-      height: 5,
+      height: '5\' 5"',
       types: ['psychic'],
       category: "genetic"
     },
@@ -57,7 +57,7 @@ pokemonRepository.getAll().forEach(function (pokemon) {
     "-" +
     " " +
     "height" +
-    ":" +
+    ": " +
     pokemon.height +
     "," +
     " " +
