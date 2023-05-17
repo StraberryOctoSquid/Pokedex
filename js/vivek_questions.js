@@ -26,11 +26,6 @@ let pokemonRepository = (function () {
   // How would I use the add function to push another pokemon into the array?
   // Why doesn't the below code work?
 
-pokemonRepository.add(pokemon)
-  name: 'Charmander',
-  height: 2,
-  types: ['fire']
-    ;
 
 
   function getAll() {
@@ -46,7 +41,11 @@ pokemonRepository.add(pokemon)
 
 })();
 
-
+pokemonRepository.add({
+  name: 'Charmander',
+  height: 2,
+  types: ['fire']
+})
 
 
 document.write("Pokédex ");
