@@ -4,17 +4,20 @@ let pokemonRepository = (function () {
     {
       name: 'Mewtwo',
       height: 5,
-      types: ['psychic']
+      types: ['psychic'],
+      category: "genetic"
     },
     {
       name: 'Charizard',
       height: 15,
-      types: ['fire']
+      types: ['fire'],
+      category: "flame"
     },
     {
       name: 'Wortle',
       height: 5,
-      types: ['water', 'grass']
+      types: ['water', 'grass'],
+      category: "turtle"
     },
 
   ];
@@ -44,7 +47,8 @@ let pokemonRepository = (function () {
 pokemonRepository.add({
   name: 'Charmander',
   height: 2,
-  types: ['fire']
+  types: ['fire'],
+  category: "lizard"
 })
 
 
