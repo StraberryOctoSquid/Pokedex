@@ -62,7 +62,7 @@ pokemonRepository.getAll().forEach(function (pokemon) {
     " " +
     "type" +
     ":" +
-    pokemon.type +
+    pokemon.types +
     "," +
     " " +
     "category" +
