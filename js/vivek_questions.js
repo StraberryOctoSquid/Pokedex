@@ -1,7 +1,4 @@
 
-//1. What is the name of this function?... Function?
-//2. Where is the function defined?
-//3. Is this function calling itself?
 let pokemonRepository = (function () {
   let pokemonList = [
     {
@@ -29,11 +26,11 @@ let pokemonRepository = (function () {
   // How would I use the add function to push another pokemon into the array?
   // Why doesn't the below code work?
 
-  // pokemonrepository.add()
-  // name: 'Charmander',
-  //   height: 2,
-  //     types: ['fire']
-  //   ;
+pokemonRepository.add(pokemon)
+  name: 'Charmander',
+  height: 2,
+  types: ['fire']
+    ;
 
 
   function getAll() {
@@ -41,8 +38,7 @@ let pokemonRepository = (function () {
   }
 
 
-//What is the purpose of this return?
-//How does it work?
+  
   return {
     add: add,
     getAll: getAll
