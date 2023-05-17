@@ -26,9 +26,6 @@ let pokemonRepository = (function () {
     pokemonList.push(pokemon);
   }
 
-  // How would I use the add function to push another pokemon into the array?
-  // Why doesn't the below code work?
-
 
 
   function getAll() {
