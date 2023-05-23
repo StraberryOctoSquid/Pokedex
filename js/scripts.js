@@ -1,27 +1,8 @@
 
 let pokemonRepository = (function () {
-  let pokemonList = [
-    {
-      name: 'Mewtwo',
-      height: '5\' 5"',
-      types: ['psychic'],
-      category: "genetic"
-    },
-    {
-      name: 'Charizard',
-      height: 15,
-      types: ['fire'],
-      category: "flame"
-    },
-    {
-      name: 'Wortle',
-      height: 5,
-      types: ['water', 'grass'],
-      category: "turtle"
-    },
-
-  ];
-
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+    
   function add(pokemon) {
     pokemonList.push(pokemon);
   }
