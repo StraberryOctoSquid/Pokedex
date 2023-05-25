@@ -63,8 +63,8 @@ let pokemonRepository = (function () {
   }
 
    // logs the name of the pokemon of the button that is clicked
-  function showDetails(pokemon) {
-    loadDetails(pokemon).then(function () {
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function () {
       console.log(item);
     });
   }
