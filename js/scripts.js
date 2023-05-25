@@ -32,13 +32,7 @@ let pokemonRepository = (function () {
 
 
   }
-  // logs the name of the pokemon of the button that is clicked
-  function showDetails(pokemon) {
-    console.log(pokemon.name)
-
-  }
-
-
+ 
   function loadList() {
     return fetch(apiUrl).then(function (response) {
       return response.json();
@@ -52,15 +46,34 @@ let pokemonRepository = (function () {
       });
     }).catch(function (e) {
       console.error(e);
-    })
+    });
+  }
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.types;
+      item.types = details.types;
+    }).catch(function (e) {
+      console.error(e);
+    });
   }
 
+   // logs the name of the pokemon of the button that is clicked
+  function showDetails(pokemon) {
+    loadDetails(pokemon).then(function () {
+      console.log(item);
+    });
+  }
 
   return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
+    loadDetails: loadDetails,
   };
 
 })();
