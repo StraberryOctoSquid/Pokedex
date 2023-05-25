@@ -2,12 +2,10 @@
 let pokemonRepository = (function () {
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-    
+
   function add(pokemon) {
     pokemonList.push(pokemon);
   }
-
-
 
   function getAll() {
     return pokemonList;
@@ -21,23 +19,42 @@ let pokemonRepository = (function () {
     button.classList.add("button-class");
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);
-    
+
     // event listner that ennacts showDetails function
-    button.addEventListener('click',function (event) {
+    button.addEventListener('click', function (event) {
       showDetails(pokemon);
     })
+
 
   }
   // logs the name of the pokemon of the button that is clicked
   function showDetails(pokemon) {
     console.log(pokemon.name)
-    
+
   }
+
+
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
+  }
+
 
   return {
     add: add,
     getAll: getAll,
-    addListItem: addListItem,
+    loadList: loadList,
   };
 
 })();
