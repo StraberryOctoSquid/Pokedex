@@ -4,13 +4,18 @@ let pokemonRepository = (function () {
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   function add(pokemon) {
-    pokemonList.push(pokemon);
+    if (
+      typeof pokemon === "object" &&
+      "name" in pokemon
+    ) {
+      pokemonList.push(pokemon);
+    } else {
+      console.log("pokemon is not correct");
+    }
   }
-
   function getAll() {
     return pokemonList;
   }
-
   function addListItem(pokemon) {
     let pokemonList = document.querySelector(".pokemon-list");
     let listPokemon = document.createElement('li');
@@ -54,23 +59,21 @@ let pokemonRepository = (function () {
   return {
     add: add,
     getAll: getAll,
+    addListItem: addListItem,
     loadList: loadList,
   };
 
 })();
 
 pokemonRepository.add({
-  name: 'Charmander',
-  height: 2,
-  types: ['fire'],
-  category: "lizard"
-})
+  name: "Pikachu", height: 0.3,
+  types: ["electric"]
+});
 
+// document.write("Pokédex ");
 
-document.write("Pokédex ");
-
-pokemonRepository.getAll().forEach(function (pokemon) {
-
-  pokemonRepository.addListItem(pokemon);
-
+pokemonRepository.loadList().then(function () {
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
