@@ -43,6 +43,7 @@ let pokemonRepository = (function () {
           detailsUrl: item.url
         };
         add(pokemon);
+        console.log(pokemon);
       });
     }).catch(function (e) {
       console.error(e);
@@ -54,7 +55,7 @@ let pokemonRepository = (function () {
       return response.json();
     }).then(function (details) {
       item.imageUrl = details.sprites.front_default;
-      item.height = details.types;
+      item.height = details.height;
       item.types = details.types;
     }).catch(function (e) {
       console.error(e);
@@ -77,11 +78,6 @@ let pokemonRepository = (function () {
   };
 
 })();
-
-pokemonRepository.add({
-  name: "Pikachu", height: 0.3,
-  types: ["electric"]
-});
 
 // document.write("Pokédex ");
 
