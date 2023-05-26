@@ -21,7 +21,10 @@ let pokemonRepository = (function () {
     let listPokemon = document.createElement('li');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
+
+    // is this attaching a "class" to the buttons? Can css and js access buttons using .button-class?
     button.classList.add("button-class");
+    
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);
 
@@ -78,8 +81,6 @@ let pokemonRepository = (function () {
   };
 
 })();
-
-// document.write("Pokédex ");
 
 pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
