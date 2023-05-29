@@ -57,14 +57,16 @@ let pokemonRepository = (function () {
   function showModal(title, text) {
     let modalContainer = document.querySelector("#modal-container");
 
-    // //clear modal html content 
+    // // //clear modal html content 
     modalContainer.innerHTML = "";
 
     // create div .modal
     let modal = document.createElement("div");
     modal.classList.add("modal");
 
-   
+    // breaks modal
+    // let myImage = docmuent.createElement("img");
+    // myImage.classList.add("myImage");
 
     // create button, with class, text and event listener, hide modal on click
     let closeButtonElement = document.createElement("button");
@@ -85,15 +87,12 @@ let pokemonRepository = (function () {
     modal.appendChild(titleElement);
     modal.appendChild(contentElement);
     modalContainer.appendChild(modal);
+    // modal.appendChild(myImage);
 
     // add .is-visible class to modalContainer
     modalContainer.classList.add("is-visible");
+    // pokemonimg.classList.add("is-visible");
   }
-  // adds click listener to "show modal" button. Run function "showModal" on click
-  // document.querySelector("#show-modal").addEventListener("click",() =>
-  // {
-  //     showModal("Modal title", "This is the modal content!");
-  // });
 
   function hideModal() {
     let modalContainer = document.querySelector("#modal-container");
@@ -119,7 +118,8 @@ let pokemonRepository = (function () {
       json.results.forEach(function (item) {
         let pokemon = {
           name: item.name,
-          detailsUrl: item.url
+          height: item.height,
+          detailsUrl: item.url,
         };
         add(pokemon);
         console.log(pokemon);
