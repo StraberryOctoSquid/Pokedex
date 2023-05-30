@@ -46,16 +46,15 @@ let pokemonRepository = (function () {
     // places listPokemon as first decendant of pokemonList
     pokemonList.appendChild(listPokemon);
 
-    // enacts showDetails and showModal functions
+    // enacts showDetails
     button.addEventListener('click', () => {
       showDetails(pokemon);
-      showModal(pokemon.name, "Height: " + pokemon.height);
     });
 
   }
 
-  // show modal function
-  function showModal(title, text) {
+  // show modal function..pokething parameter is a placeholder. pokething.name, pokething.height, pokething.imagUrl. When called, the pokething paremeter is replaced with item
+  function showModal(pokething) {
     let modalContainer = document.querySelector("#modal-container");
 
     // // //clear modal html content 
@@ -65,9 +64,6 @@ let pokemonRepository = (function () {
     let modal = document.createElement("div");
     modal.classList.add("modal");
 
-    // breaks modal
-    // let myImage = docmuent.createElement("img");
-    // myImage.classList.add("myImage");
 
     // create button, with class, text and event listener, hide modal on click
     let closeButtonElement = document.createElement("button");
@@ -77,18 +73,25 @@ let pokemonRepository = (function () {
 
     // create h1
     let titleElement = document.createElement("h1");
-    titleElement.innerText = title;
+    titleElement.innerText = pokething.name;
 
     // create p
     let contentElement = document.createElement("p");
-    contentElement.innerText = text;
+    contentElement.innerText = "Height: " + pokething.height;
+
+    // create img element
+    let myImage = document.createElement("img");
+    myImage.setAttribute("src", pokething.imageUrl);
+    myImage.setAttribute("width", "304");
+    myImage.setAttribute("height", "200");
+
 
     // nest button, h1, and p,as first children of ".modal" nest modal as first child of".modal-container div"
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
     modal.appendChild(contentElement);
     modalContainer.appendChild(modal);
-    // modal.appendChild(myImage);
+    modal.appendChild(myImage);
 
     // add .is-visible class to modalContainer
     modalContainer.classList.add("is-visible");
@@ -118,37 +121,40 @@ let pokemonRepository = (function () {
     return fetch(apiUrl).then(function (response) {
       return response.json();
     }).then(function (json) {
+      // is this where the pokemon object in the api is defined as item?
       json.results.forEach(function (item) {
+        console.log(item);
         let pokemon = {
           name: item.name,
-          // why is the height in the console log undefined?
-          height: item.height,
           detailsUrl: item.url,
         };
         add(pokemon);
-        console.log(pokemon);
       });
     }).catch(function (e) {
       console.error(e);
     });
   }
+  // detailsUrl??? item.name makes sense, item.url makes sense, is detailsUrl defined in line 128? as item.url?
   function loadDetails(item) {
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
-      item.imageUrl = details.sprites.front_default;
+      item.imageUrl = details.sprites.other.dream_world.front_default;
       item.height = details.height;
-      item.types = details.types;
+      // item.types = details.types;
     }).catch(function (e) {
       console.error(e);
     });
+
   }
 
-  // logs the name of the pokemon of the button that is clicked
+  // logs top level details of the pokemon of the button that is clicked
   function showDetails(item) {
     pokemonRepository.loadDetails(item).then(function () {
       console.log(item);
+      //  everything from 144 is being sent with showModal
+      showModal(item);
     });
   }
 
