@@ -7,7 +7,7 @@ let pokemonRepository = (function () {
   // define apiURL as the pokemon database api https address
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-  // what does this function do? is it a promise?
+  // what does this function do?
   // if the pokemon is an object and has a name it will then be pushed to pokemonList, else console.log "...."?
   function add(pokemon) {
     if (
@@ -38,18 +38,19 @@ let pokemonRepository = (function () {
     let button = document.createElement('button');
     button.innerText = pokemon.name;
 
-    // is this attaching a "class" to the buttons? Can css and js access buttons using .button-class?
+    // adds button-class to buttons
     button.classList.add("button-class");
 
+    // places button as first decendant of listPokemon
     listPokemon.appendChild(button);
+    // places listPokemon as first decendant of pokemonList
     pokemonList.appendChild(listPokemon);
 
     // enacts showDetails and showModal functions
-    button.addEventListener('click', function (event) {
+    button.addEventListener('click', () => {
       showDetails(pokemon);
       showModal(pokemon.name, "Height: " + pokemon.height);
-    })
-
+    });
 
   }
 
@@ -92,6 +93,8 @@ let pokemonRepository = (function () {
     // add .is-visible class to modalContainer
     modalContainer.classList.add("is-visible");
     // pokemonimg.classList.add("is-visible");
+
+
   }
 
   function hideModal() {
@@ -118,6 +121,7 @@ let pokemonRepository = (function () {
       json.results.forEach(function (item) {
         let pokemon = {
           name: item.name,
+          // why is the height in the console log undefined?
           height: item.height,
           detailsUrl: item.url,
         };
