@@ -5,7 +5,7 @@ let pokemonRepository = (function () {
   let pokemonList = [];
 
   // define apiURL as the pokemon database api https address
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=5';
 
   // what does this function do?
   // if the pokemon is an object and has a name it will then be pushed to pokemonList, else console.log "...."?
@@ -40,6 +40,8 @@ let pokemonRepository = (function () {
     // creates button defined as button with text pokemon.name
     let button = document.createElement('button');
     button.innerText = pokemon.name;
+    // adds toggle modal attribute to buttons
+    $("button").attr("data-toggle=modal");
 
     // adds button-class to buttons
     $("button").addClass("button-class btn btn-primary btn-lg");
