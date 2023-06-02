@@ -59,6 +59,42 @@ let pokemonRepository = (function () {
 
   // show modal function..pokething parameter is a placeholder. pokething.name, pokething.height, pokething.imagUrl. When called, the pokething paremeter is replaced with item
   function showModal(pokething) {
+    let modalBody = $(".modal-body");
+    let modalTitle = $(".modal-title");
+    let modalHeader = $(".modal-header");
+    // let $modalContainer = $("#modal-container");
+    // clear existing content of the modal
+    // modalHeader.empty();
+    // empties modal so that multiple clicks don't create multiple modal data
+    modalTitle.empty();
+    modalBody.empty();
+
+    // create element for name in modal content
+    let nameElement = $("<h1>" + item.name + "</h1>");
+    // create img in modal content
+    let imageElementFront = $('<img class="modal-img" style="width:50%">');
+    imageElementFront.attr("src", item.imageUrlFront);
+    let ImageElementBack = $('<img class="modal-img" style="width:50%">')
+    ImageElementBack.attr("src", item.imageUrlBack);
+    // create height element
+    let heightElement = $("<P>" + "height : " + item.height + "</p>");
+    // create weight element
+    let weightElement = $("<p>" + "weight : " + item.weight + "</p>");
+    // create type element
+    let typesElement = $("<p>" + "types : " + item.types + "</p>");
+    // create abilities element
+    let abilitiesElement = $("<p>" + "abilities : " + item.abilities + "</p>");
+
+    modalTitle.append(nameElement);
+    modalBody.append(imageElementFront);
+    modalBody.append(ImageElementBack);
+    modalBody.append(heightElement);
+    modalBody.append(weightElement);
+    modalBody.append(typesElement);
+    modalBody.append(abilitiesElement);
+
+
+
     let modalContainer = document.querySelector("#modal-container");
 
     // // //clear modal html content 
@@ -172,4 +208,5 @@ pokemonRepository.loadList().then(function () {
     pokemonRepository.addListItem(pokemon);
   });
 });
-
+// Call bootstrap modal
+$('#myModal').modal(options)
