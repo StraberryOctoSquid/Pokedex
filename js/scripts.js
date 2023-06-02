@@ -33,6 +33,9 @@ let pokemonRepository = (function () {
 
     // creates list item defined as listPokemon
     let listPokemon = document.createElement('li');
+    
+    // adds "list-group-item" class to all list item elements
+    $("li").addClass("list-group-item");
 
     // creates button defined as button with text pokemon.name
     let button = document.createElement('button');
