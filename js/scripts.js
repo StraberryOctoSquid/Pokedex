@@ -26,20 +26,36 @@ let pokemonRepository = (function () {
   }
 
   //creates button with text of pokemon.name, and click event listner
-  function addListItem(pokemon) {
+  function addListItem(pokemon, i) {
 
     // defines pokemonList as ul.pokemon-list
     let pokemonList = document.querySelector(".pokemon-list");
 
     // creates list item defined as listPokemon
     let listPokemon = document.createElement('li');
-    
-    // adds "list-group-item" class to all list item elements
-    $("li").addClass("list-group-item");
 
     // creates button defined as button with text pokemon.name
     let button = document.createElement('button');
-    button.innerText = pokemon.name;
+
+    button.setAttribute("data-toggle", "modal");
+    button.setAttribute("data-target", "#modal-container");
+    button.innerText = i + '. ' + pokemon.name;
+    button.classList.add(
+      "button-class",
+      "show-modal",
+      "btn",
+      "btn-outline-info",
+    );
+    // adds "list-group-item" class to all list item elements
+    listItem.classList.add("list-group-item");
+    listItem.appendChild(button);
+    visibleList.appendChild(listItem);
+    button.addEventListener("click", () => {
+      showDetails(pokemon);
+    });
+
+
+
     // adds toggle modal attribute to buttons
     // $(".btn").attr("data-toggle", "modal");
 
