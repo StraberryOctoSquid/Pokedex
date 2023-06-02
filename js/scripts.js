@@ -42,7 +42,8 @@ let pokemonRepository = (function () {
     button.innerText = pokemon.name;
 
     // adds button-class to buttons
-    button.classList.add("button-class");
+    $("button").addClass("button-class btn btn-primary btn-lg");
+    // button.classList.add("button-class");
 
     // places button as first decendant of listPokemon
     listPokemon.appendChild(button);
