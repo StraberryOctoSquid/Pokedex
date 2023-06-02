@@ -41,10 +41,10 @@ let pokemonRepository = (function () {
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     // adds toggle modal attribute to buttons
-    $("button").attr("data-toggle=modal");
+    // $(".btn").attr("data-toggle", "modal");
 
     // adds button-class to buttons
-    $("button").addClass("button-class btn btn-primary btn-lg");
+    // $("button").addClass("button-class btn");
     // button.classList.add("button-class");
 
     // places button as first decendant of listPokemon
