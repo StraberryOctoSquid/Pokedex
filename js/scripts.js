@@ -95,62 +95,62 @@ let pokemonRepository = (function () {
 
 
 
-    let modalContainer = document.querySelector("#modal-container");
+    // let modalContainer = document.querySelector("#modal-container");
 
-    // // //clear modal html content 
-    modalContainer.innerHTML = "";
+    // // // //clear modal html content 
+    // modalContainer.innerHTML = "";
 
-    // create div .modal
-    let modal = document.createElement("div");
-    modal.classList.add("modal");
-
-
-    // create button, with class, text and event listener, hide modal on click
-    let closeButtonElement = document.createElement("button");
-    closeButtonElement.classList.add("modal-close");
-    closeButtonElement.innerText = "Close";
-    closeButtonElement.addEventListener("click", hideModal);
-
-    // create h1
-    let titleElement = document.createElement("h1");
-    titleElement.innerText = pokething.name;
-
-    // create p
-    let contentElement = document.createElement("p");
-    contentElement.innerText = "Height: " + pokething.height;
-
-    // create img element
-    let myImage = document.createElement("img");
-    myImage.setAttribute("src", pokething.imageUrl);
-    myImage.setAttribute("width", "304");
-    myImage.setAttribute("height", "200");
+    // // create div .modal
+    // let modal = document.createElement("div");
+    // modal.classList.add("modal");
 
 
-    // nest button, h1, and p,as first children of ".modal" nest modal as first child of".modal-container div"
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(contentElement);
-    modalContainer.appendChild(modal);
-    modal.appendChild(myImage);
+    // // create button, with class, text and event listener, hide modal on click
+    // let closeButtonElement = document.createElement("button");
+    // closeButtonElement.classList.add("modal-close");
+    // closeButtonElement.innerText = "Close";
+    // closeButtonElement.addEventListener("click", hideModal);
 
-    // add .is-visible class to modalContainer
-    modalContainer.classList.add("is-visible");
-    // pokemonimg.classList.add("is-visible");
+    // // create h1
+    // let titleElement = document.createElement("h1");
+    // titleElement.innerText = pokething.name;
+
+    // // create p
+    // let contentElement = document.createElement("p");
+    // contentElement.innerText = "Height: " + pokething.height;
+
+    // // create img element
+    // let myImage = document.createElement("img");
+    // myImage.setAttribute("src", pokething.imageUrl);
+    // myImage.setAttribute("width", "304");
+    // myImage.setAttribute("height", "200");
+
+
+    // // nest button, h1, and p,as first children of ".modal" nest modal as first child of".modal-container div"
+    // modal.appendChild(closeButtonElement);
+    // modal.appendChild(titleElement);
+    // modal.appendChild(contentElement);
+    // modalContainer.appendChild(modal);
+    // modal.appendChild(myImage);
+
+    // // add .is-visible class to modalContainer
+    // modalContainer.classList.add("is-visible");
+    // // pokemonimg.classList.add("is-visible");
 
 
   }
 
-  function hideModal() {
-    let modalContainer = document.querySelector("#modal-container");
-    modalContainer.classList.remove("is-visible");
-  }
+  // function hideModal() {
+  //   let modalContainer = document.querySelector("#modal-container");
+  //   modalContainer.classList.remove("is-visible");
+  // }
 
-  window.addEventListener("keydown", (e) => {
-    let modalContainer = document.querySelector("#modal-container");
-    if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
-      hideModal();
-    }
-  });
+  // window.addEventListener("keydown", (e) => {
+  //   let modalContainer = document.querySelector("#modal-container");
+  //   if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
+  //     hideModal();
+  //   }
+  // });
 
   function loadList() {
     return fetch(apiUrl).then(function (response) {
