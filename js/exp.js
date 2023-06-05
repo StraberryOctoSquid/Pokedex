@@ -4,9 +4,9 @@ let pokemonRepository = (function () {
 
     function add(pokemon) {
         if (typeof pokemon === 'object') {
-        pokemonList.push(pokemon);
+            pokemonList.push(pokemon);
         } else {
-        console.log('pokemon input is not correct');
+            console.log('pokemon input is not correct');
         }
     }
 
@@ -14,14 +14,14 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    function addListItem(pokemon, i) {
+    function addListItem(pokemon) {
         const visibleList = document.querySelector('.pokemon-list');
         const listItem = document.createElement('li');
         const button = document.createElement('button');
 
         button.setAttribute('data-toggle', 'modal');
         button.setAttribute('data-target', '#modal-container');
-        button.innerText = i + '. ' + pokemon.name;
+        button.innerText = pokemon.name;
         button.classList.add(
             'button-class',
             'show-modal',
@@ -29,54 +29,63 @@ let pokemonRepository = (function () {
             'btn-outline-info'
         );
 
-        listItem.classList.add('list-group-item');
+        listItem.classList.add('col');
+// can't figure out how to get front image to render on button
+        // const pokemonImage = document.createElement('img');
+        // pokemonImage.src = pokemon.imageUrlFront;
+        // button.appendChild(pokemonImage);
+
+        // console.log(pokemonImage.src);
+
         listItem.appendChild(button);
+
         visibleList.appendChild(listItem);
         button.addEventListener('click', () => {
             showDetails(pokemon);
+
         });
     }
 
     function loadList() {
         return fetch(apiUrl)
-          .then(function (response) {
-            return response.json();
-        })
-          .then(function (json) {
-            json.results.forEach(function (item) {
-                const pokemon = {
-                    name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-                    height: item.height,
-                    types: item.types,
-                    weight: item.weight,
-                    detailsUrl: item.url,
-                };
-                add(pokemon);
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                json.results.forEach(function (item) {
+                    const pokemon = {
+                        name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+                        height: item.height,
+                        types: item.types,
+                        weight: item.weight,
+                        detailsUrl: item.url,
+                    };
+                    add(pokemon);
+                });
+            })
+            .catch(function (e) {
+                console.error(e);
             });
-        })
-        .catch(function (e) {
-            console.error(e);
-        });
     }
 
     function loadDetails(pokemon) {
         const url = pokemon.detailsUrl;
         return fetch(url)
-          .then(function (response) {
-            return response.json();
-        })
-          .then(function (details) {
-            pokemon.height = details.height;
-            pokemon.types = details.types;
-            pokemon.sprite = details.sprites.front_default;
-            pokemon.sprite2 = details.sprites.back_default;
-            pokemon.weight = details.weight;
-        })
-          .catch(function (e) {
-            console.error(e);
-        });
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (details) {
+                pokemon.height = details.height;
+                pokemon.types = details.types;
+                pokemon.sprite = details.sprites.front_default;
+                pokemon.sprite2 = details.sprites.back_default;
+                pokemon.weight = details.weight;
+            })
+            .catch(function (e) {
+                console.error(e);
+            });
     }
-    
+
     function showDetails(item) {
         pokemonRepository.loadDetails(item).then(function () {
             showModal(item);
@@ -94,60 +103,60 @@ let pokemonRepository = (function () {
             type2 = pokemon.types[1].type['name'];
             $(".modal-body").html(
                 "<p>" + "Height: " +
-                  pokemon.height / 10 +
-                  "m" +
-                  "</p>" +
-                  "<p>" + "Type: " +
-                  type1 +
-                  ", " +
-                  type2 +
-                  "</p>" +
-                  "<p>" + "Weight: " +
-                  pokemon.weight + "lbs." +
-                  "</p>" +
-                  "<img src=" +
-                  '"' +
-                  pokemon.sprite +
-                  '"' +
-                  "/>" +
-                  "<img src=" +
-                  '"' + 
-                  pokemon.sprite2 +
-                  '"' +
-                  "/>"
-              );
+                pokemon.height / 10 +
+                "m" +
+                "</p>" +
+                "<p>" + "Type: " +
+                type1 +
+                ", " +
+                type2 +
+                "</p>" +
+                "<p>" + "Weight: " +
+                pokemon.weight + "lbs." +
+                "</p>" +
+                "<img src=" +
+                '"' +
+                pokemon.sprite +
+                '"' +
+                "/>" +
+                "<img src=" +
+                '"' +
+                pokemon.sprite2 +
+                '"' +
+                "/>"
+            );
             // $(".modal-body").html()
         } else {
             type1 = pokemon.types[0].type['name'];
             $(".modal-body").html(
                 "<p>" + "Height: " +
-                  pokemon.height / 10 +
-                  "m" +
-                  "</p>" +
-                  "<p>" + "Type: " +
-                  type1 +
-                  "</p>" +
-                  "<p>" + "Weight: " +
-                  pokemon.weight + "lbs." +
-                  "</p>" +
-                  "<img src=" +
-                  '"' +
-                  pokemon.sprite +
-                  '"' +
-                  "/>" +
-                  "<img src=" +
-                  '"' + 
-                  pokemon.sprite2 +
-                  '"' +
-                  "/>"
-              );
+                pokemon.height / 10 +
+                "m" +
+                "</p>" +
+                "<p>" + "Type: " +
+                type1 +
+                "</p>" +
+                "<p>" + "Weight: " +
+                pokemon.weight + "lbs." +
+                "</p>" +
+                "<img src=" +
+                '"' +
+                pokemon.sprite +
+                '"' +
+                "/>" +
+                "<img src=" +
+                '"' +
+                pokemon.sprite2 +
+                '"' +
+                "/>"
+            );
         }
     }
 
 
     return {
         getAll: getAll,
-        loadList:loadList,
+        loadList: loadList,
         addListItem: addListItem,
         loadDetails: loadDetails,
     };
@@ -156,6 +165,6 @@ let pokemonRepository = (function () {
 
 pokemonRepository.loadList().then(function () {
     pokemonRepository.getAll().forEach(function (pokemon, index) {
-        pokemonRepository.addListItem(pokemon, index + 1);
+        pokemonRepository.addListItem(pokemon, index);
     });
 });
