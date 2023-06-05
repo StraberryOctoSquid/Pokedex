@@ -8,27 +8,20 @@
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Css is intentionally commented out. The directions are to minify and link. My .css code breaks the page, and is not needed. -->
-        <!-- <link rel="stylesheet" href="/dist/dist.css"> -->
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
+    <div id="loading-message" style="display: none;">Loading...</div>
     <!-- insert bootstrap base nav -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Pokedex</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Pikachu</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Zapdos</a>
-        </li>
+    <nav class="navbar nav-light" style="background-color: #FF0000 ;">
+        <a class="navbar-brand" style="color:#FFDE00">Pokedex</a>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
+    </nav>
 
-    </ul>
-
-    <h1 id="title">Pokedex</h1>
-    <ul class="pokemon-list list-group"></ul>
+    <ul class="pokemon-list list-group list-group-horizontal row"></ul>
 
     <!-- Modal -->
     <div class="modal fade" id="modal-container" tabindex="-1" role="dialog" aria-labelledby="modal-container-label"
@@ -64,7 +57,7 @@
         crossorigin="anonymous"></script>
     <script src="./js/promise-polyfill.js"></script>
     <script src="./js/fetch-polyfill.js"></script>
-    <script src="./dist/dist.js"></script>
+    <script src="./js/exp.js"></script>
 </body>
 
 </html>
