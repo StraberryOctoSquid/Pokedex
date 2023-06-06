@@ -13,3 +13,23 @@ ul{
   color: blue;
 
 }
+
+.button-class{
+  width: 10em;
+  height: 10em;
+  background-color:#FFDE00;
+  font-weight: 650;
+  font-size: larger;
+  color: #3B4CCA;
+  border-color: #B3A125;
+  border-width: 3px;
+}
+
+.button-class:hover{
+  background-color:#cc0000;
+  color: #FFDE00;
+}
+
+.col{
+  padding-top: 30px;
+}
