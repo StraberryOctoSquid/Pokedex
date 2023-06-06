@@ -35,8 +35,6 @@ let pokemonRepository = (function () {
         // pokemonImage.src = pokemon.imageUrlFront;
         // button.appendChild(pokemonImage);
 
-        // console.log(pokemonImage.src);
-
         listItem.appendChild(button);
 
         visibleList.appendChild(listItem);
