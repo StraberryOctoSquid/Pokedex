@@ -89,7 +89,6 @@ let pokemonRepository = (function () {
         $('.modal-title').html(pokemon.name);
         $('.modal-text').html('<p>' + ' ' + '</p>');
 
-        // loop through types and set names in a comma separated string
         const types = pokemon.types.map(function (pokemon) {
             return pokemon.type.name;
         }).join(', ');
