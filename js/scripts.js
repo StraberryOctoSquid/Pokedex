@@ -51,7 +51,7 @@ let pokemonRepository = (function () {
                     const pokemon = {
                         name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
                         detailsUrl: item.url,
-                        id:   item.url.split('/')[6],
+                        id: item.url.split('/')[6],
                     };
                     add(pokemon);
                 });
@@ -86,42 +86,47 @@ let pokemonRepository = (function () {
     }
 
     function showModal(pokemon) {
-        $('.modal-text').html('<p>' + ' ' + '</p>');
         $('.modal-title').html(pokemon.name);
+        $('.modal-text').html('<p>' + ' ' + '</p>');
 
-//loop through types and set names in a comma separated string
-const types = item.types.map(function(pokemon) {
-    return pokemon.type.name;
-  }).join(', ') 
+        // loop through types and set names in a comma separated string
+        const types = pokemon.types.map(function (pokemon) {
+            return pokemon.type.name;
+        }).join(', ');
 
-let type1, type2;
-            type1 = pokemon.types[0].type['name'];
-            type2 = pokemon.types[1].type['name'] ||"";
-            
-            $(".modal-body").html(
-                "<p>" + "Height: " +
-                pokemon.height / 10 +
-                "m" +
-                "</p>" +
-                "<p>" + "Type: " +
-                type1 +
-                ", " +
-                type2 +
-                "</p>" +
-                "<p>" + "Weight: " +
-                pokemon.weight + "lbs." +
-                "</p>" +
-                "<img src=" +
-                '"' +
-                pokemon.sprite +
-                '"' +
-                "/>" +
-                "<img src=" +
-                '"' +
-                pokemon.sprite2 +
-                '"' +
-                "/>"
-            );
+        $('.modal-text').html("<p>" + "Height: " +
+            pokemon.height / 10 + " M" + "</p>" +
+            "<p>" + "Types: "  + types+ "</p>"
+        );
+
+        // let type1, type2;
+        // type1 = pokemon.types[0].type['name'];
+        // type2 = pokemon.types[1].type['name'] || "";
+
+        // $(".modal-body").html(
+        //     "<p>" + "Height: " +
+        //     pokemon.height / 10 +
+        //     "m" +
+        //     "</p>" +
+        //     "<p>" + "Type: " +
+        //     type1 +
+        //     ", " +
+        //     type2 +
+        //     "</p>" +
+        //     "<p>" + "Weight: " +
+        //     pokemon.weight + "lbs." +
+        //     "</p>" +
+        //     "<img src=" +
+        //     '"' +
+        //     pokemon.sprite +
+        //     '"' +
+        //     "/>" +
+        //     "<img src=" +
+        //     '"' +
+        //     pokemon.sprite2 +
+        //     '"' +
+        //     "/>"
+        // );
     }
 
 
