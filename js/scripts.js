@@ -1,230 +1,141 @@
-// container function of iife
 let pokemonRepository = (function () {
+    const pokemonList = []
+    const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-  // define pokemonLIst as an array
-  let pokemonList = [];
-
-  // define apiURL as the pokemon database api https address
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=5';
-
-  // what does this function do?
-  // if the pokemon is an object and has a name it will then be pushed to pokemonList, else console.log "...."?
-  function add(pokemon) {
-    if (
-      typeof pokemon === "object" &&
-      "name" in pokemon
-    ) {
-      pokemonList.push(pokemon);
-    } else {
-      console.log("pokemon is not correct");
+    function add(pokemon) {
+        if (typeof pokemon === 'object') {
+            pokemonList.push(pokemon);
+        } else {
+            console.log('pokemon input is not correct');
+        }
     }
-  }
 
-  // create getAll function that returns pokemonList array
-  function getAll() {
-    return pokemonList;
-  }
+    function getAll() {
+        return pokemonList;
+    }
+    function addListItem(pokemon) {
+        const visibleList = document.querySelector('.pokemon-list');
+        const listItem = document.createElement('li');
+        const button = document.createElement('button');
 
-  //creates button with text of pokemon.name, and click event listner
-  function addListItem(pokemon, i) {
+        button.setAttribute('data-toggle', 'modal');
+        button.setAttribute('data-target', '#modal-container');
+        button.innerText = pokemon.name;
+        button.classList.add(
+            'button-class',
+            'show-modal',
+            'btn',
+            'btn-outline-info'
+        );
 
-    // defines pokemonList as ul.pokemon-list
-    let pokemonList = document.querySelector(".pokemon-list");
+        listItem.classList.add('col');
+        const pokemonImage = document.createElement('img');
+        pokemonImage.src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png";
+        button.appendChild(pokemonImage);
+        listItem.appendChild(button);
 
-    // creates list item defined as listPokemon
-    let listPokemon = document.createElement('li');
+        visibleList.appendChild(listItem);
+        button.addEventListener('click', () => {
+            showDetails(pokemon);
 
-    // creates button defined as button with text pokemon.name
-    let button = document.createElement('button');
+        });
+    }
 
-    button.setAttribute("data-toggle", "modal");
-    button.setAttribute("data-target", "#modal-container");
-    button.innerText = i + '. ' + pokemon.name;
-    button.classList.add(
-      "button-class",
-      "show-modal",
-      "btn",
-      "btn-outline-info",
-    );
-    // adds "list-group-item" class to all list item elements
-    listItem.classList.add("list-group-item");
-    listItem.appendChild(button);
-    visibleList.appendChild(listItem);
-    button.addEventListener("click", () => {
-      showDetails(pokemon);
-    });
+    function loadList() {
+        return fetch(apiUrl)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                json.results.forEach(function (item) {
+                    const pokemon = {
+                        name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+                        detailsUrl: item.url,
+                        id:   item.url.split('/')[6],
+                    };
+                    add(pokemon);
+                });
+            })
+            .catch(function (e) {
+                console.error(e);
+            });
+    }
 
+    function loadDetails(pokemon) {
+        const url = pokemon.detailsUrl;
+        return fetch(url)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (details) {
+                pokemon.height = details.height;
+                pokemon.types = details.types;
+                pokemon.sprite = details.sprites.front_default;
+                pokemon.sprite2 = details.sprites.back_default;
+                pokemon.weight = details.weight;
+            })
+            .catch(function (e) {
+                console.error(e);
+            });
+    }
 
+    function showDetails(item) {
+        pokemonRepository.loadDetails(item).then(function () {
+            showModal(item);
+        });
+    }
 
-    // adds toggle modal attribute to buttons
-    // $(".btn").attr("data-toggle", "modal");
+    function showModal(pokemon) {
+        $('.modal-text').html('<p>' + ' ' + '</p>');
+        $('.modal-title').html(pokemon.name);
 
-    // adds button-class to buttons
-    // $("button").addClass("button-class btn");
-    // button.classList.add("button-class");
+//loop through types and set names in a comma separated string
+const types = item.types.map(function(pokemon) {
+    return pokemon.type.name;
+  }).join(', ') 
 
-    // places button as first decendant of listPokemon
-    listPokemon.appendChild(button);
-    // places listPokemon as first decendant of pokemonList
-    pokemonList.appendChild(listPokemon);
-
-    // enacts showDetails
-    button.addEventListener('click', () => {
-      showDetails(pokemon);
-    });
-
-  }
-
-  // show modal function..pokething parameter is a placeholder. pokething.name, pokething.height, pokething.imagUrl. When called, the pokething paremeter is replaced with item
-  function showModal(pokething) {
-    let modalBody = $(".modal-body");
-    let modalTitle = $(".modal-title");
-    let modalHeader = $(".modal-header");
-    // let $modalContainer = $("#modal-container");
-    // clear existing content of the modal
-    // modalHeader.empty();
-    // empties modal so that multiple clicks don't create multiple modal data
-    modalTitle.empty();
-    modalBody.empty();
-
-    // create element for name in modal content
-    let nameElement = $("<h1>" + item.name + "</h1>");
-    // create img in modal content
-    let imageElementFront = $('<img class="modal-img" style="width:50%">');
-    imageElementFront.attr("src", item.imageUrlFront);
-    let ImageElementBack = $('<img class="modal-img" style="width:50%">')
-    ImageElementBack.attr("src", item.imageUrlBack);
-    // create height element
-    let heightElement = $("<P>" + "height : " + item.height + "</p>");
-    // create weight element
-    let weightElement = $("<p>" + "weight : " + item.weight + "</p>");
-    // create type element
-    let typesElement = $("<p>" + "types : " + item.types + "</p>");
-    // create abilities element
-    let abilitiesElement = $("<p>" + "abilities : " + item.abilities + "</p>");
-
-    modalTitle.append(nameElement);
-    modalBody.append(imageElementFront);
-    modalBody.append(ImageElementBack);
-    modalBody.append(heightElement);
-    modalBody.append(weightElement);
-    modalBody.append(typesElement);
-    modalBody.append(abilitiesElement);
-
-
-
-    // let modalContainer = document.querySelector("#modal-container");
-
-    // // // //clear modal html content 
-    // modalContainer.innerHTML = "";
-
-    // // create div .modal
-    // let modal = document.createElement("div");
-    // modal.classList.add("modal");
-
-
-    // // create button, with class, text and event listener, hide modal on click
-    // let closeButtonElement = document.createElement("button");
-    // closeButtonElement.classList.add("modal-close");
-    // closeButtonElement.innerText = "Close";
-    // closeButtonElement.addEventListener("click", hideModal);
-
-    // // create h1
-    // let titleElement = document.createElement("h1");
-    // titleElement.innerText = pokething.name;
-
-    // // create p
-    // let contentElement = document.createElement("p");
-    // contentElement.innerText = "Height: " + pokething.height;
-
-    // // create img element
-    // let myImage = document.createElement("img");
-    // myImage.setAttribute("src", pokething.imageUrl);
-    // myImage.setAttribute("width", "304");
-    // myImage.setAttribute("height", "200");
+let type1, type2;
+            type1 = pokemon.types[0].type['name'];
+            type2 = pokemon.types[1].type['name'] ||"";
+            
+            $(".modal-body").html(
+                "<p>" + "Height: " +
+                pokemon.height / 10 +
+                "m" +
+                "</p>" +
+                "<p>" + "Type: " +
+                type1 +
+                ", " +
+                type2 +
+                "</p>" +
+                "<p>" + "Weight: " +
+                pokemon.weight + "lbs." +
+                "</p>" +
+                "<img src=" +
+                '"' +
+                pokemon.sprite +
+                '"' +
+                "/>" +
+                "<img src=" +
+                '"' +
+                pokemon.sprite2 +
+                '"' +
+                "/>"
+            );
+    }
 
 
-    // // nest button, h1, and p,as first children of ".modal" nest modal as first child of".modal-container div"
-    // modal.appendChild(closeButtonElement);
-    // modal.appendChild(titleElement);
-    // modal.appendChild(contentElement);
-    // modalContainer.appendChild(modal);
-    // modal.appendChild(myImage);
-
-    // // add .is-visible class to modalContainer
-    // modalContainer.classList.add("is-visible");
-    // // pokemonimg.classList.add("is-visible");
-
-
-  }
-
-  // function hideModal() {
-  //   let modalContainer = document.querySelector("#modal-container");
-  //   modalContainer.classList.remove("is-visible");
-  // }
-
-  // window.addEventListener("keydown", (e) => {
-  //   let modalContainer = document.querySelector("#modal-container");
-  //   if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
-  //     hideModal();
-  //   }
-  // });
-
-  function loadList() {
-    return fetch(apiUrl).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      // is this where the pokemon object in the api is defined as item?
-      json.results.forEach(function (item) {
-        console.log(item);
-        let pokemon = {
-          name: item.name,
-          detailsUrl: item.url,
-        };
-        add(pokemon);
-      });
-    }).catch(function (e) {
-      console.error(e);
-    });
-  }
-  // detailsUrl??? item.name makes sense, item.url makes sense, is detailsUrl defined in line 128? as item.url?
-  function loadDetails(item) {
-    let url = item.detailsUrl;
-    return fetch(url).then(function (response) {
-      return response.json();
-    }).then(function (details) {
-      item.imageUrl = details.sprites.other.dream_world.front_default;
-      item.height = details.height;
-      // item.types = details.types;
-    }).catch(function (e) {
-      console.error(e);
-    });
-
-  }
-
-  // logs top level details of the pokemon of the button that is clicked
-  function showDetails(item) {
-    pokemonRepository.loadDetails(item).then(function () {
-      console.log(item);
-      //  everything from 144 is being sent with showModal
-      showModal(item);
-    });
-  }
-
-  return {
-    add: add,
-    getAll: getAll,
-    addListItem: addListItem,
-    loadList: loadList,
-    loadDetails: loadDetails,
-  };
-
+    return {
+        getAll: getAll,
+        loadList: loadList,
+        addListItem: addListItem,
+        loadDetails: loadDetails,
+    };
 })();
 
+
 pokemonRepository.loadList().then(function () {
-  pokemonRepository.getAll().forEach(function (pokemon) {
-    pokemonRepository.addListItem(pokemon);
-  });
+    pokemonRepository.getAll().forEach(function (pokemon, index) {
+        pokemonRepository.addListItem(pokemon, index);
+    });
 });
-// Call bootstrap modal
-$('#myModal').modal(options)
