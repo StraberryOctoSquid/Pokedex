@@ -94,39 +94,15 @@ let pokemonRepository = (function () {
             return pokemon.type.name;
         }).join(', ');
 
-        $('.modal-text').html("<p>" + "Height: " +
-            pokemon.height / 10 + " M" + "</p>" +
-            "<p>" + "Types: "  + types+ "</p>"
+        $('.modal-text').html("<p>" + "Height: " + pokemon.height / 10 + "m" + "</p>" +
+        "<p>" + "Weight: " + pokemon.weight + "kg" + "</p>"+
+        "<p>" + "Types: " + types+ "</p>"        
+        + "<img src=" + '"' + "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" + pokemon.id + ".gif" + '"' + "/>"
+        + "<img src=" + '"' + pokemon.sprite2 + '"' + "/>"
+        
+        // why doesn't this work?
+        // + "<img src=" + '"' + pokemon.sprites.versions.generation-v.black-white.animated.front_default + '"' + "/>"       
         );
-
-        // let type1, type2;
-        // type1 = pokemon.types[0].type['name'];
-        // type2 = pokemon.types[1].type['name'] || "";
-
-        // $(".modal-body").html(
-        //     "<p>" + "Height: " +
-        //     pokemon.height / 10 +
-        //     "m" +
-        //     "</p>" +
-        //     "<p>" + "Type: " +
-        //     type1 +
-        //     ", " +
-        //     type2 +
-        //     "</p>" +
-        //     "<p>" + "Weight: " +
-        //     pokemon.weight + "lbs." +
-        //     "</p>" +
-        //     "<img src=" +
-        //     '"' +
-        //     pokemon.sprite +
-        //     '"' +
-        //     "/>" +
-        //     "<img src=" +
-        //     '"' +
-        //     pokemon.sprite2 +
-        //     '"' +
-        //     "/>"
-        // );
     }
 
 
