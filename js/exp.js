@@ -13,7 +13,6 @@ let pokemonRepository = (function () {
     function getAll() {
         return pokemonList;
     }
-
     function addListItem(pokemon) {
         const visibleList = document.querySelector('.pokemon-list');
         const listItem = document.createElement('li');
@@ -30,11 +29,9 @@ let pokemonRepository = (function () {
         );
 
         listItem.classList.add('col');
-// can't figure out how to get front image to render on button
-        // const pokemonImage = document.createElement('img');
-        // pokemonImage.src = pokemon.imageUrlFront;
-        // button.appendChild(pokemonImage);
-
+        const pokemonImage = document.createElement('img');
+        pokemonImage.src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png";
+        button.appendChild(pokemonImage);
         listItem.appendChild(button);
 
         visibleList.appendChild(listItem);
@@ -53,10 +50,8 @@ let pokemonRepository = (function () {
                 json.results.forEach(function (item) {
                     const pokemon = {
                         name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-                        height: item.height,
-                        types: item.types,
-                        weight: item.weight,
                         detailsUrl: item.url,
+                        id:   item.url.split('/')[6],
                     };
                     add(pokemon);
                 });
@@ -87,7 +82,6 @@ let pokemonRepository = (function () {
     function showDetails(item) {
         pokemonRepository.loadDetails(item).then(function () {
             showModal(item);
-            console.log(item);
         });
     }
 
@@ -95,10 +89,15 @@ let pokemonRepository = (function () {
         $('.modal-text').html('<p>' + ' ' + '</p>');
         $('.modal-title').html(pokemon.name);
 
-        let type1, type2;
-        if (pokemon.types[1]) {
+//loop through types and set names in a comma separated string
+const types = item.types.map(function(pokemon) {
+    return pokemon.type.name;
+  }).join(', ') 
+
+let type1, type2;
             type1 = pokemon.types[0].type['name'];
-            type2 = pokemon.types[1].type['name'];
+            type2 = pokemon.types[1].type['name'] ||"";
+            
             $(".modal-body").html(
                 "<p>" + "Height: " +
                 pokemon.height / 10 +
@@ -123,32 +122,6 @@ let pokemonRepository = (function () {
                 '"' +
                 "/>"
             );
-            // $(".modal-body").html()
-        } else {
-            type1 = pokemon.types[0].type['name'];
-            $(".modal-body").html(
-                "<p>" + "Height: " +
-                pokemon.height / 10 +
-                "m" +
-                "</p>" +
-                "<p>" + "Type: " +
-                type1 +
-                "</p>" +
-                "<p>" + "Weight: " +
-                pokemon.weight + "lbs." +
-                "</p>" +
-                "<img src=" +
-                '"' +
-                pokemon.sprite +
-                '"' +
-                "/>" +
-                "<img src=" +
-                '"' +
-                pokemon.sprite2 +
-                '"' +
-                "/>"
-            );
-        }
     }
 
 
