@@ -30,6 +30,8 @@ let pokemonRepository = (function () {
 
         listItem.classList.add('col');
         const pokemonImage = document.createElement('img');
+        console.log(pokemon.image);
+
         pokemonImage.src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png";
         button.appendChild(pokemonImage);
         listItem.appendChild(button);
@@ -39,6 +41,7 @@ let pokemonRepository = (function () {
             showDetails(pokemon);
 
         });
+        
     }
 
     function loadList() {
@@ -52,6 +55,7 @@ let pokemonRepository = (function () {
                         name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
                         detailsUrl: item.url,
                         id: item.url.split('/')[6],
+                        image: item.url.base_experience,
                     };
                     add(pokemon);
                 });
@@ -73,6 +77,7 @@ let pokemonRepository = (function () {
                 pokemon.sprite = details.sprites.front_default;
                 pokemon.sprite2 = details.sprites.back_default;
                 pokemon.weight = details.weight;
+                pokemon.sprites = details.sprites;
             })
             .catch(function (e) {
                 console.error(e);
@@ -98,10 +103,15 @@ let pokemonRepository = (function () {
         "<p>" + "Types: " + types+ "</p>"        
         + "<img src=" + '"' + "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" + pokemon.id + ".gif" + '"' + "/>"
         + "<img src=" + '"' + pokemon.sprite2 + '"' + "/>"
+        // + "<p>" + "Types: " + pokemon.abilities.ability.name+ "</p>"        
         
         // why doesn't this work?
         // + "<img src=" + '"' + pokemon.sprites.versions.generation-v.black-white.animated.front_default + '"' + "/>"       
+        
         );
+        // why do these have the same value
+        console.log(pokemon.sprites.back_default);
+        console.log(pokemon.sprite2);
     }
 
 
