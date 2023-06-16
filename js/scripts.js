@@ -30,7 +30,6 @@ let pokemonRepository = (function () {
 
         listItem.classList.add('col');
         const pokemonImage = document.createElement('img');
-        console.log(pokemon.image);
 
         pokemonImage.src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png";
         button.appendChild(pokemonImage);
@@ -55,8 +54,8 @@ let pokemonRepository = (function () {
                         name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
                         detailsUrl: item.url,
                         id: item.url.split('/')[6],
-                        image: item.url.base_experience,
                     };
+                    console.log(pokemon);
                     add(pokemon);
                 });
             })
