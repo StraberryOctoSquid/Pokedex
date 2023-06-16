@@ -55,7 +55,6 @@ let pokemonRepository = (function () {
                         detailsUrl: item.url,
                         id: item.url.split('/')[6],
                     };
-                    console.log(pokemon);
                     add(pokemon);
                 });
             })
@@ -102,13 +101,7 @@ let pokemonRepository = (function () {
         "<p>" + "Types: " + types+ "</p>"        
         + "<img src=" + '"' + "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" + pokemon.id + ".gif" + '"' + "/>"
         + "<img src=" + '"' + pokemon.sprite2 + '"' + "/>"
-        // + "<p>" + "Types: " + pokemon.abilities.ability.name+ "</p>"        
-        
-        // why doesn't this work?
-        // + "<img src=" + '"' + pokemon.sprites.versions.generation-v.black-white.animated.front_default + '"' + "/>"       
-        
         );
-        // why do these have the same value
         console.log(pokemon.sprites.back_default);
         console.log(pokemon.sprite2);
     }
