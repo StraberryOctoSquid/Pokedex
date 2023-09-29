@@ -1,1 +1,6 @@
 li,ul{display:flex;justify-content:center}#loading-message{display:flex;justify-content:center;color:#00f}.button-class{width:10em;height:10em;background-color:#ffde00;font-weight:650;font-size:larger;color:#3b4cca;border-color:#b3a125;border-width:3px}.button-class:hover{background-color:#c00;color:#ffde00}.col{padding-top:30px}
+.footerLogo {
+  width: 30px;
+  height: 30px;
+  margin: 0px;
+}

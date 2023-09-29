@@ -33,3 +33,9 @@ ul{
 .col{
   padding-top: 30px;
 }
+
+.footerLogo {
+  width: 30px;
+  height: 30px;
+  margin: 0px;
+}
